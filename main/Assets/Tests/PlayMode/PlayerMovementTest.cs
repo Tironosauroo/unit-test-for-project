@@ -41,19 +41,24 @@ public class PlayerMovementTest
         // arrange
         Vector3 startPos = player.transform.position;
 
-        // forward
-        movement.GetType().GetField("moveInput",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.SetValue(movement, new Vector2(0, 1));
+        // задаємо рух вперед
+        var moveInputField = movement.GetType()
+            .GetField("moveInput", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        moveInputField.SetValue(movement, new Vector2(0, 1));
+
+        // вимикаємо фізику, щоб CharacterController не заважав
+        var controller = player.GetComponent<CharacterController>();
+        controller.enabled = false;
 
         // act
         for (int i = 0; i < 10; i++)
         {
-            player.SendMessage("Update");
+            movement.Update();   // виклик напряму, а не SendMessage
             yield return null;
         }
 
-        Assert.Greater(player.transform.position.z, startPos.z, "player should go forward");
+        // assert
+        Assert.Greater(player.transform.position.z, startPos.z, "Player should move forward when input is positive on Y axis.");
     }
 
 
