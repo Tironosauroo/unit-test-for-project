@@ -1,9 +1,6 @@
 using NUnit.Framework;
 using UnityEngine;
 
-/// <summary>
-/// Tests for ButtonManager.cs
-/// </summary>
 public class ButtonManagerTests
 {
     private GameObject managerObj;

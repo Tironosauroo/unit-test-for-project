@@ -41,19 +41,15 @@ public class PlayerMovementTest
         // arrange
         Vector3 startPos = player.transform.position;
 
-        // задаємо рух вперед
+        // forward
         var moveInputField = movement.GetType()
             .GetField("moveInput", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         moveInputField.SetValue(movement, new Vector2(0, 1));
 
-        // вимикаємо фізику, щоб CharacterController не заважав
-        var controller = player.GetComponent<CharacterController>();
-        controller.enabled = false;
-
         // act
+        // waiting 10 frames
         for (int i = 0; i < 10; i++)
         {
-            movement.Update();   // виклик напряму, а не SendMessage
             yield return null;
         }
 
