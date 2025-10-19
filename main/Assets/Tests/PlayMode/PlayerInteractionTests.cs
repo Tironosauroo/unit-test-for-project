@@ -44,12 +44,11 @@ public class PlayerInteractionTests
     [UnityTest]
     public IEnumerator Hud_Activates_OnTriggerEnter_And_Deactivates_OnTriggerExit()
     {
-        // --- ВИПРАВЛЕННЯ 2.1: Додаємо PickableItem, щоб OnTriggerEnter спрацював ---
-        // (Припускаю, що ваш OnTriggerEnter шукає цей компонент)
+        // adding PickableItem
         pickable.AddComponent<PickableItem>();
         var collider = pickable.GetComponent<Collider>();
 
-        // HUD unactive by default
+        // HUD inactive by default
         Assert.IsFalse(hud.activeSelf, "HUD should be inactive at start.");
 
         // player enters a trigger
@@ -70,7 +69,7 @@ public class PlayerInteractionTests
     {
         // add test PickableItem from Sprite
 
-        // --- ВИПРАВЛЕННЯ 1: Texture2D.blackTexture - 4x4, а не 10x10 ---
+        // 4x4 sprite
         var sprite = Sprite.Create(Texture2D.blackTexture, new Rect(0, 0, 4, 4), Vector2.zero);
 
         var pickableItem = pickable.AddComponent<PickableItem>();
@@ -83,7 +82,7 @@ public class PlayerInteractionTests
         // activating HUD
         Assert.IsTrue(hud.activeSelf, "HUD should be active before interact.");
 
-        // calling Interact hrough reflection
+        // calling Interact through reflection
         var interactMethod = typeof(PlayerInteraction)
             .GetMethod("Interact", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         interactMethod.Invoke(interaction, null);
@@ -94,12 +93,10 @@ public class PlayerInteractionTests
         Assert.IsFalse(pickable.activeSelf, "Pickable should be disabled after picking.");
     }
 
-    // Це буде вже інший тест, який перевіряє "безпечну" поведінку
     [UnityTest]
     public IEnumerator Interact_DoesNotThrow_AndHidesItem_When_NoInventory()
     {
         // arrange
-        // hud залишаємо, inventory видаляємо
         typeof(PlayerInteraction)
             .GetField("inventory", BindingFlags.NonPublic | BindingFlags.Instance)
             .SetValue(interaction, null);
@@ -108,7 +105,7 @@ public class PlayerInteractionTests
         var sprite = Sprite.Create(Texture2D.blackTexture, new Rect(0, 0, 4, 4), Vector2.zero);
         pickableItem.itemSprite = sprite;
 
-        // Встановлюємо currentPickable через рефлексію
+        // setting currentPickable through reflection
         var currentItemField = typeof(PlayerInteraction)
             .GetField("currentPickable", BindingFlags.NonPublic | BindingFlags.Instance);
         currentItemField.SetValue(interaction, pickable);
@@ -118,11 +115,11 @@ public class PlayerInteractionTests
             .GetMethod("Interact", BindingFlags.NonPublic | BindingFlags.Instance);
 
         // assert
-        // Перевіряємо, що винятку НЕ було
+        // no exceptions
         Assert.DoesNotThrow(() => interactMethod.Invoke(interaction, null));
         yield return null;
 
-        // Перевіряємо, що об'єкт все одно зник
+        // disabled test
         Assert.IsFalse(pickable.activeSelf, "Pickable should be disabled even with no inventory.");
     }
 }

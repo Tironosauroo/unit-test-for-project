@@ -41,21 +41,16 @@ public class PlayerMovementTest
         // arrange
         Vector3 startPos = player.transform.position;
 
-        // задаємо рух вперед
+        // forward
         var moveInputField = movement.GetType()
             .GetField("moveInput", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         moveInputField.SetValue(movement, new Vector2(0, 1));
 
-        // НЕ вимикаємо CharacterController, він потрібен для руху
-        // var controller = player.GetComponent<CharacterController>();
-        // controller.enabled = false; // <-- ЦЕЙ РЯДОК ТРЕБА ВИДАЛИТИ
-
         // act
-        // Ми просто чекаємо 10 кадрів. Unity сам викличе Update() 10 разів.
+        // waiting 10 frames
         for (int i = 0; i < 10; i++)
         {
-            // movement.Update();   // <-- ПРИБИРАЄМО ЦЕЙ РЯДОК
-            yield return null;      // <-- Цього достатньо
+            yield return null;
         }
 
         // assert
