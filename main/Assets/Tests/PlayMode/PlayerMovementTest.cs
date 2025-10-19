@@ -46,15 +46,16 @@ public class PlayerMovementTest
             .GetField("moveInput", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         moveInputField.SetValue(movement, new Vector2(0, 1));
 
-        // вимикаємо фізику, щоб CharacterController не заважав
-        var controller = player.GetComponent<CharacterController>();
-        controller.enabled = false;
+        // НЕ вимикаємо CharacterController, він потрібен для руху
+        // var controller = player.GetComponent<CharacterController>();
+        // controller.enabled = false; // <-- ЦЕЙ РЯДОК ТРЕБА ВИДАЛИТИ
 
         // act
+        // Ми просто чекаємо 10 кадрів. Unity сам викличе Update() 10 разів.
         for (int i = 0; i < 10; i++)
         {
-            movement.Update();   // виклик напряму, а не SendMessage
-            yield return null;
+            // movement.Update();   // <-- ПРИБИРАЄМО ЦЕЙ РЯДОК
+            yield return null;      // <-- Цього достатньо
         }
 
         // assert

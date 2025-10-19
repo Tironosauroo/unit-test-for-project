@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.InputSystem",
-        "ScriptsDef"
+        "ScriptsDef",
+        "Items"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
