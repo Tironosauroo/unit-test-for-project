@@ -1,0 +1,7 @@
+<map id="Inventory" name="Inventory">
+<area shape="rect" id="Node000001" title="Main inventory management class that implements IInventoryQueue for InventoryItem." alt="" coords="120,93,204,119"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,13,129,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,45,150,91,146,95,90,49"/>
+<area shape="rect" id="Node000003" href="$interfaceIInventoryQueue.html" title=" " alt="" coords="153,5,360,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,56,178,95,174,91,221,52"/>
+</map>

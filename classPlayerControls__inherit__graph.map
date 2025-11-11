@@ -1,0 +1,7 @@
+<map id="PlayerControls" name="PlayerControls">
+<area shape="rect" id="Node000001" title="Provides programmatic access to InputActionAsset, InputActionMap, InputAction and InputControlScheme ..." alt="" coords="113,79,231,104"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,179,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,38,161,76,157,80,113,42"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="203,5,301,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,42,187,80,183,76,227,38"/>
+</map>

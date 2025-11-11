@@ -1,0 +1,21 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$interfaceIInventoryQueue.html" title=" " alt="" coords="5,5,212,45"/>
+<area shape="rect" id="Node000001" href="$classInventory.html" title="Main inventory management class that implements IInventoryQueue for InventoryItem." alt="" coords="285,13,369,38"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="226,23,284,23,284,28,226,28"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="47,185,171,210"/>
+<area shape="poly" id="edge6_Node000002_Node000001" title=" " alt="" coords="126,172,182,111,218,77,259,47,283,35,286,40,261,52,222,81,185,114,130,176"/>
+<area shape="rect" id="Node000003" href="$classButtonManager.html" title="A MonoBehaviour class that manages button interactions for the main menu in a Unity game...." alt="" coords="265,62,388,87"/>
+<area shape="poly" id="edge4_Node000002_Node000003" title=" " alt="" coords="136,174,192,136,259,96,285,85,287,90,261,101,194,140,139,178"/>
+<area shape="rect" id="Node000004" href="$classDontDestroy.html" title=" " alt="" coords="275,111,379,137"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="159,178,287,134,289,139,161,183"/>
+<area shape="rect" id="Node000005" href="$classLevelManager.html" title=" " alt="" coords="269,161,384,186"/>
+<area shape="poly" id="edge7_Node000002_Node000005" title=" " alt="" coords="184,186,269,177,270,182,185,192"/>
+<area shape="rect" id="Node000006" href="$classPickableItem.html" title="Component for pickable items in the game." alt="" coords="273,210,380,235"/>
+<area shape="poly" id="edge8_Node000002_Node000006" title=" " alt="" coords="185,203,273,214,273,219,184,209"/>
+<area shape="rect" id="Node000007" href="$classPlayerInteraction.html" title="Component for managing player interactions with pickable items." alt="" coords="260,259,393,285"/>
+<area shape="poly" id="edge9_Node000002_Node000007" title=" " alt="" coords="161,212,290,257,288,262,159,217"/>
+<area shape="rect" id="Node000008" href="$classPlayerLook.html" title="Component for controlling player camera look direction." alt="" coords="279,309,374,334"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="139,216,195,254,261,294,290,306,287,311,259,298,192,259,136,220"/>
+<area shape="rect" id="Node000009" href="$classPlayerMovement.html" title="Component for controlling player movement, jumping, and crouching." alt="" coords="260,358,393,383"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="130,219,185,281,222,315,261,344,284,356,281,360,259,349,218,319,181,285,126,223"/>
+</map>
