@@ -1,20 +1,40 @@
+/// @file PlayerMovement.cs
+/// @brief This file contains the PlayerMovement class, which handles player locomotion, jumping, and crouching in the Unity game.
+///        It uses Unity's Input System for controls and integrates with CharacterController for physics-based movement.
+/// @details The PlayerMovement component manages movement speed, gravity, jumping mechanics, and camera adjustments during crouching.
+///          It subscribes to input actions for move, jump, and crouch, and applies transformations accordingly.
+///          Ensures grounded checks for jumping and smooth transitions for crouching.
+
 using UnityEngine;
 using UnityEngine.InputSystem; // новий інпут
 
+/// @brief Component for controlling player movement, jumping, and crouching.
+/// @details This MonoBehaviour class requires a CharacterController and uses PlayerControls for input.
+///          It handles horizontal movement, vertical velocity with gravity, jumping, and camera height adjustments for crouching.
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    /// @brief The normal movement speed of the player.
     [Header("Movement")]
     public float speed = 6f;
+
+    /// @brief The movement speed while crouching.
     public float crouchSpeed = 3f;
+
+    /// @brief The gravity acceleration applied to the player.
     public float gravity = -9.81f;
+
+    /// @brief The height of the jump.
     public float jumpHeight = 1.5f;
 
+    /// @brief The transform of the camera for crouching adjustments.
     [Header("Camera")]
     public Transform cameraTransform;
-    public float crouchHeight = 0.8f; // downing
-    private float normalCameraY;
 
+    /// @brief The amount to lower the camera during crouching.
+    public float crouchHeight = 0.8f; // downing
+
+    private float normalCameraY;
     private bool isCrouching = false;
 
     private CharacterController controller;
@@ -23,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls controls; // class form new input system .inputactions
     private Vector2 moveInput;
 
+    /// @brief Initializes the input controls and subscribes to movement, jump, and crouch events.
+    /// @details Creates a PlayerControls instance and sets up callbacks for performed and canceled actions.
     void Awake()
     {
         controls = new PlayerControls();
@@ -36,15 +58,21 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Crouch.canceled += ctx => StopCrouch();
     }
 
+    /// @brief Enables the player controls.
     void OnEnable() => controls.Player.Enable();
+
+    /// @brief Disables the player controls.
     void OnDisable() => controls.Player.Disable();
 
+    /// @brief Initializes the CharacterController and stores the normal camera height.
     void Start()
     {
         controller = GetComponent<CharacterController>();
         normalCameraY = cameraTransform.localPosition.y;
     }
 
+    /// @brief Updates movement and applies gravity each frame.
+    /// @details Calculates movement direction based on input, applies speed (considering crouching), and handles vertical velocity with gravity.
     void Update()
     {
         // movement
@@ -60,12 +88,16 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    /// @brief Performs a jump if the player is grounded.
+    /// @details Calculates the initial upward velocity based on jump height and gravity.
     void Jump()
     {
         if (controller.isGrounded)
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
+    /// @brief Starts crouching by lowering the camera and setting the crouching flag.
+    /// @details Adjusts the camera's local position downward by crouchHeight and sets isCrouching to true.
     void StartCrouch()
     {
         isCrouching = true;
@@ -74,6 +106,8 @@ public class PlayerMovement : MonoBehaviour
         cameraTransform.localPosition = pos;
     }
 
+    /// @brief Stops crouching by resetting the camera height and clearing the crouching flag.
+    /// @details Resets the camera's local position to normalCameraY and sets isCrouching to false.
     void StopCrouch()
     {
         isCrouching = false;

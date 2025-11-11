@@ -1,9 +1,22 @@
+/// @file PlayerInteractionTests_fixed.cs
+/// @brief This file contains unit tests for the PlayerInteraction class in a Unity game environment.
+///        It uses NUnit and Unity Test Tools to test player interactions with pickable items, such as HUD activation/deactivation and item picking.
+///        The tests ensure proper handling of trigger events, interaction logic, and edge cases like missing inventory.
+/// @details The PlayerInteraction class is assumed to manage player interactions with game objects tagged as "Pickable", including HUD display and item collection.
+///          Tests cover trigger enter/exit events, interaction methods, and scenarios with or without inventory components.
+///          All tests use reflection to access private fields and methods for thorough validation, and coroutines for Unity-specific timing.
+
+
 using NUnit.Framework;
 using System.Collections;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+/// @brief Test class for PlayerInteraction functionality.
+/// @details This class provides unit tests to validate the PlayerInteraction's methods for handling pickable items.
+///          It includes setup and teardown to create and destroy test objects, ensuring clean test environments.
+///          Tests focus on HUD management, trigger events, and interaction outcomes, using reflection for private access.
 public class PlayerInteractionTests
 {
     private GameObject player;
@@ -11,6 +24,10 @@ public class PlayerInteractionTests
     private GameObject hud;
     private GameObject pickable;
 
+    /// @brief Sets up the test environment before each test.
+    /// @details Creates a PlayerInteraction component, HUD, and pickable GameObjects, initializes their states,
+    ///          and uses reflection to assign private fields. Also invokes OnEnable if available.
+    /// @throws None (setup failures would be handled by NUnit; assertions for missing fields).
     [SetUp]
     public void Setup()
     {
@@ -45,6 +62,9 @@ public class PlayerInteractionTests
         }
     }
 
+    /// @brief Tears down the test environment after each test.
+    /// @details Destroys all created GameObjects to prevent memory leaks and ensure test isolation.
+    /// @throws None (teardown failures would be handled by NUnit).
     [TearDown]
     public void Teardown()
     {
@@ -53,6 +73,9 @@ public class PlayerInteractionTests
         if (pickable != null) Object.DestroyImmediate(pickable);
     }
 
+    /// @brief Tests that the HUD activates on trigger enter and deactivates on trigger exit.
+    /// @details Simulates entering and exiting a pickable item's trigger, verifying HUD state changes.
+    /// @throws None (test assertions handle failures; reflection errors caught by Assert.Fail).
     [UnityTest]
     public IEnumerator Hud_Activates_OnTriggerEnter_And_Deactivates_OnTriggerExit()
     {
@@ -76,6 +99,9 @@ public class PlayerInteractionTests
         Assert.IsFalse(hud.activeInHierarchy, "HUD should deactivate when exiting pickable trigger.");
     }
 
+    /// @brief Tests that Interact hides the HUD and disables the pickable item.
+    /// @details Simulates interaction with a pickable item, ensuring HUD deactivation and item disabling.
+    /// @throws None (test assertions handle failures; reflection errors caught by Assert.Fail).
     [UnityTest]
     public IEnumerator Interact_HidesHud_And_DisablesPickable()
     {
@@ -105,6 +131,9 @@ public class PlayerInteractionTests
         Assert.IsFalse(pickable.activeSelf, "Pickable should be disabled after picking.");
     }
 
+    /// @brief Tests that Interact does not throw exceptions and hides the item even when no inventory is present.
+    /// @details Validates interaction behavior in edge cases, such as null inventory, ensuring no crashes and proper item disabling.
+    /// @throws None (test assertions handle failures; reflection errors caught by Assert.Fail).
     [UnityTest]
     public IEnumerator Interact_DoesNotThrow_AndHidesItem_When_NoInventory()
     {
