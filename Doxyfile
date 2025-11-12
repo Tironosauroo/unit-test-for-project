@@ -1,0 +1,11 @@
+PROJECT_NAME           = "Unity Game Project"
+PROJECT_BRIEF          = "General documentation for Unity C# scripts and tests."
+OUTPUT_DIRECTORY       = ./docs
+INPUT                  = ./main/Assets/Scripts \
+                         ./main/Assets/Tests
+RECURSIVE              = YES
+FILE_PATTERNS          = *.cs
+EXTRACT_ALL            = YES
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+WARN_IF_UNDOCUMENTED   = YES

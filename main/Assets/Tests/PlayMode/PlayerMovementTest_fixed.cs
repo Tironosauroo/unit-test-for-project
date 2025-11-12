@@ -1,3 +1,11 @@
+/// @file PlayerMovementTest_fixed.cs
+/// @brief This file contains unit tests for the PlayerMovement class in a Unity game environment.
+///        It uses NUnit and Unity Test Tools to test player movement and crouching functionalities.
+///        The tests ensure proper handling of input-based movement and camera adjustments during crouching.
+/// @details The PlayerMovement class is assumed to manage player locomotion and actions like crouching in the game.
+///          Tests cover forward movement based on input, crouching mechanics, and camera position resets.
+///          All tests use reflection to access private fields and methods, and coroutines for frame-based simulations.
+
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,6 +13,10 @@ using UnityEngine.TestTools;
 using System.Collections;
 using System.Reflection;
 
+/// @brief Test class for PlayerMovement functionality.
+/// @details This class provides unit tests to validate the PlayerMovement's methods for handling movement and crouching.
+///          It includes setup and teardown to create and destroy test objects, ensuring clean test environments.
+///          Tests focus on input-driven movement, camera positioning, and method invocations via reflection.
 public class PlayerMovementTest
 {
     private GameObject player;
@@ -12,6 +24,10 @@ public class PlayerMovementTest
     private CharacterController controller;
     private GameObject cameraObj;
 
+    /// @brief Sets up the test environment before each test.
+    /// @details Creates a PlayerMovement component, CharacterController, camera, and initializes their states.
+    ///          Sends Awake and Start messages, and invokes OnEnable if available to simulate component lifecycle.
+    /// @throws None (setup failures would be handled by NUnit; reflection errors caught by Assert.Fail).
     [SetUp]
     public void Setup()
     {
@@ -34,13 +50,19 @@ public class PlayerMovementTest
         else movement.enabled = true;
     }
 
-
+    /// @brief Tears down the test environment after each test.
+    /// @details Destroys the player GameObject to prevent memory leaks and ensure test isolation.
+    /// @throws None (teardown failures would be handled by NUnit).
     [TearDown]
     public void Teardown()
     {
         if (player != null) Object.DestroyImmediate(player);
     }
 
+    /// @brief Tests that the player moves forward when input is given.
+    /// @details Simulates input by setting the moveInput field and invokes Update over several frames,
+    ///          verifying that the player's position changes in the forward direction.
+    /// @throws None (test assertions handle failures; reflection errors caught by Assert.Fail).
     [UnityTest]
     public IEnumerator Player_Moves_Forward_When_Input_Given()
     {
@@ -73,6 +95,10 @@ public class PlayerMovementTest
         Assert.Greater(player.transform.position.z, startPos.z + epsilon, "Player should move forward when input is positive on Y axis.");
     }
 
+    /// @brief Tests that the player crouches and returns to normal height.
+    /// @details Invokes StartCrouch to lower the camera, then StopCrouch to reset it,
+    ///          verifying camera position changes and resets correctly.
+    /// @throws None (test assertions handle failures; reflection errors caught by Assert.Fail).
     [UnityTest]
     public IEnumerator Player_Crouches_And_Returns_To_Normal()
     {
